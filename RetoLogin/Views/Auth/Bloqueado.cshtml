@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Cuenta bloqueada";
+    var segundosRestantes = ViewBag.SegundosRestantes ?? 0;
+    var horaDesbloqueo = ViewBag.HoraDesbloqueo as string ?? "";
+}
+
+<div class="bloqueado-page">
+    <div class="card shadow-sm p-5 text-center border-0 bloqueado-card">
+        <div class="mb-3 bloqueado-icon">🔒</div>
+
+        <h3 class="fw-bold mb-3">Cuenta bloqueada temporalmente</h3>
+
+        <p class="text-muted mb-3">
+            Has excedido el número máximo de intentos fallidos (5).
+            Por seguridad, tu cuenta ha sido bloqueada durante 15 minutos.
+        </p>
+
+        <p class="mb-2">
+            Tiempo restante:
+            <strong id="countdown"></strong>
+        </p>
+
+        <p class="text-muted small mb-0">
+            Serás redirigida automáticamente al login cuando finalice el bloqueo.
+        </p>
+    </div>
+</div>
+
+<script>
+    let segundos = @segundosRestantes;
+
+    function formatearTiempo(totalSegundos) {
+        const minutos = Math.floor(totalSegundos / 60);
+        const segundosRestantes = totalSegundos % 60;
+        return `${minutos}:${segundosRestantes.toString().padStart(2, '0')}`;
+    }
+
+    function actualizarContador() {
+        const countdown = document.getElementById("countdown");
+
+        if (segundos <= 0) {
+            window.location.href = '@Url.Action("Login", "Auth")';
+            return;
+        }
+
+        countdown.textContent = formatearTiempo(segundos);
+        segundos--;
+    }
+
+    actualizarContador();
+    setInterval(actualizarContador, 1000);
+</script>

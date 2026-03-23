@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetoLogin", "RetoLogin\RetoLogin.csproj", "{CBED40CC-CCE8-4EFD-989C-D98B99458888}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBED40CC-CCE8-4EFD-989C-D98B99458888}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBED40CC-CCE8-4EFD-989C-D98B99458888}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBED40CC-CCE8-4EFD-989C-D98B99458888}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBED40CC-CCE8-4EFD-989C-D98B99458888}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF6E6316-B119-464C-9578-B7F927CB9508}
+	EndGlobalSection
+EndGlobal

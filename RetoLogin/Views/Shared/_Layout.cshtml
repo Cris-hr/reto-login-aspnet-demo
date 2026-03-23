@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - RetoLogin</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/RetoLogin.styles.css" asp-append-version="true" />
+
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body.layout-auth {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: #f3f4f6;
+            overflow-x: hidden;
+        }
+
+        .header-top {
+            width: 100%;
+            min-height: 64px;
+            background-color: #b71c1c;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            flex-shrink: 0;
+        }
+
+        .brand-title {
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .main-auth {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 16px;
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+        }
+
+        .layout-auth.layout-top .main-auth {
+            align-items: flex-start;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            overflow-y: auto;
+        }
+
+        .auth-content-wrapper {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow-x: hidden;
+        }
+
+        .footer-auth {
+            width: 100%;
+            min-height: 56px;
+            background-color: #ffffff;
+            border-top: 1px solid #dcdcdc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            color: #666;
+            flex-shrink: 0;
+            padding: 0 16px;
+        }
+    </style>
+</head>
+<body class="layout-auth @(ViewData["ContentMode"] as string == "top" ? "layout-top" : "")">
+
+    <header class="header-top">
+        <p class="brand-title">RetoLogin</p>
+    </header>
+
+    <main class="main-auth">
+        <div class="auth-content-wrapper">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer-auth">
+        © 2026 - RetoLogin
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

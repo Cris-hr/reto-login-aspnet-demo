@@ -1,0 +1,214 @@
+﻿@model RetoLogin.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    var loginError = ViewBag.LoginError as string;
+    var intentoInfo = ViewBag.IntentoInfo as string;
+    var sesionExpirada = TempData["SesionExpirada"] as string;
+    var hasError = !string.IsNullOrEmpty(loginError);
+}
+
+<div class="login-page">
+
+    @if (!string.IsNullOrEmpty(intentoInfo))
+    {
+        <div id="customToast" class="custom-toast info">
+            <div class="toast-icon">ℹ</div>
+            <div class="toast-content">
+                <strong>Atención</strong>
+                <div>@intentoInfo</div>
+            </div>
+            <button type="button" class="toast-close" onclick="cerrarToast()">×</button>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0 login-card">
+        <div class="text-center mb-4">
+            <h3 class="fw-bold mb-0">Gestión de usuarios</h3>
+        </div>
+
+        @if (!string.IsNullOrEmpty(sesionExpirada))
+        {
+            <div class="alert alert-info" role="alert">
+                @sesionExpirada
+            </div>
+        }
+
+        <form asp-action="Login" asp-controller="Auth" method="post">
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Tipo de documento</label>
+                <div class="d-flex gap-2">
+                    <input type="radio" class="btn-check" asp-for="TipoDocumento" id="dni" value="DNI" checked />
+                    <label class="btn btn-outline-secondary w-100" for="dni">DNI</label>
+
+                    <input type="radio" class="btn-check" asp-for="TipoDocumento" id="ce" value="CE" />
+                    <label class="btn btn-outline-secondary w-100" for="ce">CE</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Usuario" class="form-label fw-semibold">Usuario</label>
+                <input asp-for="Usuario"
+                       class="form-control @(hasError ? "is-invalid" : "")"
+                       placeholder="Ingresar usuario" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label fw-semibold">Contraseña</label>
+
+                <div class="password-wrapper">
+                    <input asp-for="Password"
+                           id="passwordInput"
+                           type="password"
+                           class="form-control @(hasError ? "is-invalid" : "")"
+                           placeholder="Ingresar contraseña" />
+
+                    <span class="toggle-password" id="togglePassword">
+                        👁
+                    </span>
+                </div>
+
+                <span asp-validation-for="Password" class="text-danger"></span>
+
+                @if (!string.IsNullOrEmpty(loginError))
+                {
+                    <div class="text-danger small mt-2 d-flex align-items-center gap-2">
+                        <span>⚠</span>
+                        <span>@loginError</span>
+                    </div>
+                }
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-primary py-2">Ingresar</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+    .login-page {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-card {
+        width: 100%;
+        max-width: 460px;
+        border-radius: 18px;
+        padding: 32px 28px;
+        background: #ffffff;
+    }
+
+    .input-group .form-control:focus {
+        z-index: 3;
+    }
+
+    .input-group .btn {
+        min-width: 52px;
+    }
+
+    .custom-toast {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        min-width: 280px;
+        max-width: 360px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 10px 25px rgba(0,0,0,.12);
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 14px 16px;
+        z-index: 9999;
+        border-left: 5px solid #0d6efd;
+        animation: fadeIn .25s ease-in-out;
+    }
+
+        .custom-toast.info {
+            border-left-color: #0d6efd;
+        }
+
+    .toast-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #e9f2ff;
+        color: #0d6efd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .toast-content {
+        flex: 1;
+        font-size: 14px;
+        color: #333;
+    }
+
+        .toast-content strong {
+            display: block;
+            margin-bottom: 2px;
+        }
+
+    .toast-close {
+        border: none;
+        background: transparent;
+        color: #999;
+        font-size: 18px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+        .toast-close:hover {
+            color: #333;
+        }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-8px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<script>
+    function cerrarToast() {
+        const toast = document.getElementById("customToast");
+        if (toast) {
+            toast.style.display = "none";
+        }
+    }
+
+    setTimeout(() => {
+        cerrarToast();
+    }, 6000);
+
+    const togglePasswordBtn = document.getElementById("togglePassword");
+    const passwordInput = document.getElementById("passwordInput");
+
+    if (togglePasswordBtn && passwordInput) {
+        togglePasswordBtn.addEventListener("click", function () {
+            const isPassword = passwordInput.type === "password";
+            passwordInput.type = isPassword ? "text" : "password";
+            togglePasswordBtn.textContent = isPassword ? "🙈" : "👁";
+        });
+    }
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

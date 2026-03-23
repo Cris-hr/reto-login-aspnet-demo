@@ -1,0 +1,272 @@
+﻿@model RetoLogin.Models.UsuarioLogin
+
+@{
+    ViewData["Title"] = "Perfil de usuario";
+    ViewData["ContentMode"] = "top";
+}
+
+<div class="perfil-page">
+    <div class="perfil-wrapper">
+
+        <div class="mb-4">
+            <p class="text-muted mb-1 small">Perfil de usuario</p>
+            <h2 class="fw-bold mb-0">Perfil de usuario</h2>
+        </div>
+
+        <div class="card shadow-sm border-0 rounded-4 perfil-card">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="perfil-avatar">
+                    @Model.Nombres.Substring(0, 1)
+                </div>
+
+                <div>
+                    <h3 class="mb-1 fw-bold">
+                        @Model.PrimerApellido @Model.SegundoApellido, @Model.Nombres
+                    </h3>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <span class="badge-status">Activo</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="perfil-tab mb-4">
+                Información básica
+            </div>
+
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Nombres</label>
+                    <input class="form-control perfil-readonly" value="@Model.Nombres" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Primer apellido</label>
+                    <input class="form-control perfil-readonly" value="@Model.PrimerApellido" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Segundo apellido</label>
+                    <input class="form-control perfil-readonly" value="@Model.SegundoApellido" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Tipo de documento</label>
+                    <input class="form-control perfil-readonly" value="@Model.TipoDocumento" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">N° documento</label>
+                    <input class="form-control perfil-readonly" value="@Model.NumeroDocumento" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Fecha nacimiento</label>
+                    <input class="form-control perfil-readonly" value="@Model.FechaNacimiento?.ToString("dd / MM / yyyy")" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Nacionalidad</label>
+                    <input class="form-control perfil-readonly" value="@Model.Nacionalidad" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Sexo</label>
+                    <input class="form-control perfil-readonly" value="@Model.Sexo" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Correo principal</label>
+                    <input class="form-control perfil-readonly" value="@Model.CorreoPrincipal" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Correo secundario</label>
+                    <input class="form-control perfil-readonly" value="@Model.CorreoSecundario" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Teléfono móvil</label>
+                    <input class="form-control perfil-readonly" value="@Model.TelefonoMovil" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Teléfono secundario</label>
+                    <input class="form-control perfil-readonly" value="@Model.TelefonoSecundario" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Tipo contratación</label>
+                    <input class="form-control perfil-readonly" value="@Model.TipoContratacion" readonly />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Fecha contratación</label>
+                    <input class="form-control perfil-readonly" value="@Model.FechaContratacion?.ToString("dd / MM / yyyy")" readonly />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sesionModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4">
+            <div class="modal-body p-4">
+                <h5 class="fw-bold mb-3">Su sesión está a punto de expirar</h5>
+                <p class="mb-3">
+                    Por seguridad, su sesión expirará en
+                    <strong id="segundosRestantes">60</strong> segundos.
+                </p>
+                <div class="text-end">
+                    <button type="button" class="btn btn-warning" id="btnExtenderSesion">
+                        Extender sesión
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .perfil-page {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .perfil-wrapper {
+        width: 100%;
+        max-width: 1050px;
+    }
+
+    .perfil-card {
+        background: #fff;
+        padding: 24px;
+    }
+
+    .perfil-avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        background: #0d6efd;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        flex-shrink: 0;
+    }
+
+    .perfil-tab {
+        font-weight: 600;
+        color: #0d6efd;
+        border-bottom: 2px solid #0d6efd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .perfil-readonly {
+        background-color: #f3f4f6;
+        border-color: #d7dce1;
+    }
+
+        .perfil-readonly[readonly] {
+            background-color: #f3f4f6;
+            opacity: 1;
+        }
+
+    .perfil-card .form-label {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 6px;
+    }
+
+    .badge-status {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 10px;
+        border-radius: 999px;
+        background-color: #d1f7df;
+        color: #137a3a;
+        font-size: 12px;
+        font-weight: 600;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        let tiempoInactividad = 0;
+        let tiempoMaximo = 60; // 1 minuto para prueba, tiempo real es 20min=1200 seg
+        let tiempoAviso = 30;   // mostrar modal al medio minuto=30seg(real seria 1140 seg=19min)
+        let cuentaRegresiva = 60;
+        let intervalInactividad;
+        let intervalCountdown;
+        let modalMostrado = false;
+
+        const modalElement = document.getElementById('sesionModal');
+        const sesionModal = new bootstrap.Modal(modalElement);
+
+        function reiniciarTemporizador() {
+            tiempoInactividad = 0;
+            cuentaRegresiva = tiempoMaximo - tiempoAviso;
+            modalMostrado = false;
+            clearInterval(intervalCountdown);
+            sesionModal.hide();
+        }
+
+        function iniciarControlInactividad() {
+            clearInterval(intervalInactividad);
+
+            intervalInactividad = setInterval(() => {
+                tiempoInactividad++;
+
+                if (tiempoInactividad >= tiempoAviso && !modalMostrado) {
+                    modalMostrado = true;
+                    mostrarModalExpiracion();
+                }
+
+                if (tiempoInactividad >= tiempoMaximo) {
+                    window.location.href = '/Auth/Expirada';
+                }
+            }, 1000);
+        }
+
+        function mostrarModalExpiracion() {
+            sesionModal.show();
+
+            const segundosEl = document.getElementById('segundosRestantes');
+            cuentaRegresiva = tiempoMaximo - tiempoAviso;
+
+            clearInterval(intervalCountdown);
+            intervalCountdown = setInterval(() => {
+                segundosEl.textContent = cuentaRegresiva;
+
+                if (cuentaRegresiva <= 0) {
+                    clearInterval(intervalCountdown);
+                    window.location.href = '/Auth/Expirada';
+                    return;
+                }
+
+                cuentaRegresiva--;
+            }, 1000);
+        }
+
+        document.getElementById('btnExtenderSesion').addEventListener('click', async function () {
+            await fetch('/Auth/ExtenderSesion', {
+                method: 'POST'
+            });
+
+            reiniciarTemporizador();
+        });
+
+        ['click', 'keypress', 'scroll'].forEach(evento => {
+            document.addEventListener(evento, () => {
+                if (!modalMostrado) {
+                    tiempoInactividad = 0;
+                }
+            });
+        });
+
+        iniciarControlInactividad();
+    </script>
+}

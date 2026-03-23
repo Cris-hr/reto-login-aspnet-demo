@@ -1,0 +1,82 @@
+html {
+    font-size: 14px;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.inicio-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 520px;
+    border-radius: 18px;
+    padding: 40px 36px;
+}
+
+.auth-icon {
+    font-size: 52px;
+}
+
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper input {
+        padding-right: 40px;
+    }
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #6c757d;
+    font-size: 16px;
+    user-select: none;
+}
+
+    .toggle-password:hover {
+        color: #333;
+    }
+
+.bloqueado-page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bloqueado-card {
+    width: 100%;
+    max-width: 430px;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.bloqueado-icon {
+    font-size: 48px;
+}
